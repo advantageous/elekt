@@ -2,8 +2,12 @@ group 'io.advantageous.czarmaker'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'idea'
 
-sourceCompatibility = 1.5
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 
@@ -11,7 +15,86 @@ repositories {
     mavenCentral()
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
+test.onlyIf { !Boolean.getBoolean('skip.tests') }
+
+
 dependencies {
     compile group: 'io.advantageous', name: 'reakt', version: '2.0.0.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    required false
+    sign configurations.archives
+}
+
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                try {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                } catch (MissingPropertyException ignore) {
+                }
+            }
+
+            pom.project {
+                packaging 'jar'
+                name project.name
+                description "Leadership election interface"
+
+                url 'https://github.com/advantageous/czar-maker'
+
+                scm {
+                    url 'scm:git@github.com:advantageous/czar-maker.git'
+                    connection 'scm:git@github.com:advantageous/czar-maker.git'
+                    developerConnection 'scm:git@github.com:advantageous/czar-maker.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'richardHightower'
+                        name 'Richard Hightower'
+                    }
+                    developer {
+                        id 'sailorgeoffrey'
+                        name 'Geoffrey Chandler'
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
