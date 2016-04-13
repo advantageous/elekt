@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Czar Maker by advantageous</title>
+    <title>Elekt by advantageous</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
@@ -15,48 +15,50 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Czar Maker</h1>
+        <h1>Elekt</h1>
         <p>Nice set of interfaces for Leader Election using reactive programming</p>
 
-        <p class="view"><a href="https://github.com/advantageous/czar-maker">View the Project on GitHub <small>advantageous/czar-maker</small></a></p>
+        <p class="view"><a href="https://github.com/advantageous/elekt">View the Project on GitHub <small>advantageous/elekt</small></a></p>
 
 
         <ul>
-          <li><a href="https://github.com/advantageous/czar-maker/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/advantageous/czar-maker/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/advantageous/czar-maker">View On <strong>GitHub</strong></a></li>
+          <li><a href="https://github.com/advantageous/elekt/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/advantageous/elekt/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/advantageous/elekt">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
       <section>
         <h1>
-<a id="czar-maker" class="anchor" href="#czar-maker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Czar Maker</h1>
+<a id="elekt" class="anchor" href="#elekt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Elekt</h1>
 
-<p>Czar Maker is a nice set of interfaces for <a href="https://www.consul.io/docs/guides/leader-election.html">Leader Election</a>.</p>
+<p>Elekt is a nice set of interfaces for <a href="https://www.consul.io/docs/guides/leader-election.html">Leader Election</a>.</p>
 
-<p>There is one <a href="http://advantageous.github.io/czar-maker-consul/">Czar Maker Consul implementation</a> of this interface that uses <a href="https://www.consul.io/">Consul</a>. You could use the interface to implement leader election with <a href="https://zookeeper.apache.org/">zookeeper</a> or <a href="https://github.com/coreos/etcd">etcd</a>. Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar technique as Consul and etcd).</p>
+<p>There is one <a href="http://advantageous.github.io/elekt-consul/">Elekt Consul implementation</a> of this interface that uses <a href="https://www.consul.io/">Consul</a>. You could use the interface to implement leader election with <a href="https://zookeeper.apache.org/">zookeeper</a> or <a href="https://github.com/coreos/etcd">etcd</a>. Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar technique as Consul and etcd).</p>
 
-<p>Czar uses <a href="http://advantageous.github.io/reakt/">Reakt</a>, a Java reactive, <a href="https://github.com/advantageous/reakt/wiki/Stream">streaming</a> API, with <a href="https://github.com/advantageous/reakt/wiki/Callback">callbacks</a> and <a href="https://github.com/advantageous/reakt/wiki/Promise">promises</a> that is Java 8 and Lambda friendly.</p>
+<p>Elekt uses <a href="http://advantageous.github.io/reakt/">Reakt</a>, a Java reactive, <a href="https://github.com/advantageous/reakt/wiki/Stream">streaming</a> API, with <a href="https://github.com/advantageous/reakt/wiki/Callback">callbacks</a> and <a href="https://github.com/advantageous/reakt/wiki/Promise">promises</a> that is Java 8 and Lambda friendly.</p>
 
-<p>Czar also uses <a href="http://advantageous.github.io/qbit/">QBit microservices</a> as its HTTP/IO lib.</p>
+<p>Elekt also uses <a href="http://advantageous.github.io/qbit/">QBit microservices</a> as its HTTP/IO lib.</p>
+
+<p>(This project was called Czar Maker, but was renamed to Elekt.)</p>
 
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
 
-<p>This library is just interfaces, to use Czar on your project you will need the <a href="http://advantageous.github.io/czar-maker-consul/">Czar Maker Consul implementation</a>.</p>
+<p>This library is just interfaces, to use Elekt on your project you will need the <a href="http://advantageous.github.io/elekt-consul/">Elekt Consul implementation</a>.</p>
 
 <h4>
 <a id="maven" class="anchor" href="#maven" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>maven</h4>
 
 <div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
-    &lt;<span class="pl-ent">groupId</span>&gt;io.advantageous.czarmaker&lt;/<span class="pl-ent">groupId</span>&gt;
-    &lt;<span class="pl-ent">artifactId</span>&gt;czar-maker&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;io.advantageous.elekt&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;elekt&lt;/<span class="pl-ent">artifactId</span>&gt;
     &lt;<span class="pl-ent">version</span>&gt;0.1.0.RELEASE&lt;/<span class="pl-ent">version</span>&gt;
 &lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
 
 <h4>
 <a id="gradle" class="anchor" href="#gradle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>gradle</h4>
 
-<div class="highlight highlight-source-java"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>io.advantageous.czarmaker:czar-maker:0.1.0.RELEASE<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-java"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>io.advantageous.elekt:elekt:0.1.0.RELEASE<span class="pl-pds">'</span></span></pre></div>
 
 <h4>
 <a id="example-usage" class="anchor" href="#example-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example usage</h4>
@@ -130,6 +132,7 @@
 <li><a href="http://advantageous.github.io/reakt">Reakt Reactive Java</a></li>
 <li><a href="http://advantageous.github.io/reakt-guava/">Reakt Guava Bridge</a></li>
 <li><a href="https://github.com/advantageous/qbit-extensions">QBit Extensions</a></li>
+<li><a href="http://www.mammatustech.com/reactive-microservices">Reactive Microservices</a></li>
 </ul>
       </section>
       <footer>
