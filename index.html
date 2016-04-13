@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Czar Maker by advantageous</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Czar Maker</h1>
+        <p>Nice set of interfaces for Leader Election using reactive programming</p>
+
+        <p class="view"><a href="https://github.com/advantageous/czar-maker">View the Project on GitHub <small>advantageous/czar-maker</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/advantageous/czar-maker/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/advantageous/czar-maker/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/advantageous/czar-maker">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="czar-maker" class="anchor" href="#czar-maker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Czar Maker</h1>
+
+<p>Czar Maker is a nice set of interfaces for <a href="https://www.consul.io/docs/guides/leader-election.html">Leader Election</a>.</p>
+
+<p>There is one <a href="http://advantageous.github.io/czar-maker-consul/">Czar Maker Consul implementation</a> of this interaface that uses <a href="https://www.consul.io/">Consul</a>. You could use the interface to implement leader election with <a href="https://zookeeper.apache.org/">zookeeper</a> or <a href="https://github.com/coreos/etcd">etcd</a>. Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar techique as Consul and etcd).</p>
+
+<p>Czar uses <a href="http://advantageous.github.io/reakt/">Reakt</a>, a Java reactive, <a href="https://github.com/advantageous/reakt/wiki/Stream">streaming</a>, with <a href="https://github.com/advantageous/reakt/wiki/Callback">callbacks</a> and <a href="https://github.com/advantageous/reakt/wiki/Promise">promises</a>.</p>
+
+<p>Czar also uses <a href="http://advantageous.github.io/qbit/">QBit microservices</a> as its HTTP/IO lib.</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>This library is just interfaces, to use Czar on your project you will need the <a href="http://advantageous.github.io/czar-maker-consul/">Czar Maker Consul implementation</a>.</p>
+
+<h4>
+<a id="maven" class="anchor" href="#maven" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>maven</h4>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;io.advantageous.czarmaker&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;czar-maker&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">version</span>&gt;0.1.0.RELEASE&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+
+<h4>
+<a id="gradle" class="anchor" href="#gradle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>gradle</h4>
+
+<div class="highlight highlight-source-java"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>io.advantageous.czarmaker:czar-maker:0.1.0.RELEASE<span class="pl-pds">'</span></span></pre></div>
+
+<h4>
+<a id="example-usage" class="anchor" href="#example-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example usage</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyService</span> {
+
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">String</span> host;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">int</span> port;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-smi">LeaderElector</span> leaderElector;
+    <span class="pl-k">private</span> <span class="pl-smi">AtomicBoolean</span> amILeader <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">AtomicBoolean</span>();
+    <span class="pl-k">private</span> <span class="pl-k">AtomicReference&lt;<span class="pl-smi">Endpoint</span>&gt;</span> leaderEndpoint <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">AtomicReference&lt;&gt;</span>();
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">init</span>() {
+            <span class="pl-k">Promise&lt;<span class="pl-smi">Endpoint</span>&gt;</span> getLeaderPromise <span class="pl-k">=</span> <span class="pl-smi">Promises</span><span class="pl-k">.</span><span class="pl-k">&lt;</span><span class="pl-smi">Endpoint</span><span class="pl-k">&gt;</span>promise();
+
+            <span class="pl-c">/* Call elect new leader. */</span>
+            getLeaderPromise<span class="pl-k">.</span>thenExpect(expected <span class="pl-k">-</span><span class="pl-k">&gt;</span>
+                    expected
+                            .ifEmpty(<span class="pl-v">this</span><span class="pl-k">::</span>nominateSelf)
+                            .ifPresent(endpoint <span class="pl-k">-</span><span class="pl-k">&gt;</span> leaderEndpoint<span class="pl-k">.</span>set(endpoint)))
+                            .catchError(<span class="pl-smi">Throwable</span><span class="pl-k">::</span>printStackTrace);
+            leaderElector<span class="pl-k">.</span>getLeader(getLeaderPromise);
+
+            <span class="pl-c">/* Register for stream of leadership changes. */</span>
+            registerForLeadershipNotices();
+
+    }
+
+
+  <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">registerForLeadershipNotices</span>() {
+        leaderElector<span class="pl-k">.</span>leadershipChangeNotice(result <span class="pl-k">-</span><span class="pl-k">&gt;</span>
+                result
+                        .thenExpect(<span class="pl-v">this</span><span class="pl-k">::</span>checkIfThisServiceIsLeader)
+                        .catchError(<span class="pl-smi">Throwable</span><span class="pl-k">::</span>printStackTrace)
+        );
+    }
+
+    <span class="pl-c">//Handles leadership change stream. </span>
+    <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">checkIfThisServiceIsLeader</span>(<span class="pl-k">Expected&lt;<span class="pl-smi">Endpoint</span>&gt;</span> <span class="pl-v">expectedEndpoint</span>) {
+        expectedEndpoint<span class="pl-k">.</span>ifEmpty(() <span class="pl-k">-</span><span class="pl-k">&gt;</span> nominateSelf()) <span class="pl-c">//If empty then nominate this service</span>
+                .ifPresent(endpoint <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+                    amILeader<span class="pl-k">.</span>set(endpoint<span class="pl-k">.</span>getHost()<span class="pl-k">.</span>equals(host) <span class="pl-k">&amp;&amp;</span> endpoint<span class="pl-k">.</span>getPort()<span class="pl-k">==</span>port);
+                    leaderEndpoint<span class="pl-k">.</span>set(endpoint);
+                });
+    }
+
+    <span class="pl-c">//Attempt to Nominate self if there is no leader</span>
+    <span class="pl-k">private</span> <span class="pl-k">void</span> <span class="pl-en">nominateSelf</span>() {
+        <span class="pl-k">final</span> <span class="pl-k">Promise&lt;<span class="pl-smi">Boolean</span>&gt;</span> selfElectPromise <span class="pl-k">=</span> <span class="pl-smi">Promises</span><span class="pl-k">.</span><span class="pl-k">&lt;</span><span class="pl-smi">Boolean</span><span class="pl-k">&gt;</span>promise();
+        selfElectPromise<span class="pl-k">.</span>then((elected) <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+            amILeader<span class="pl-k">.</span>set(elected);
+        })<span class="pl-k">.</span>catchError(<span class="pl-smi">Throwable</span><span class="pl-k">::</span>printStackTrace);
+
+        leaderElector<span class="pl-k">.</span>selfElect(<span class="pl-k">new</span> <span class="pl-smi">Endpoint</span>(host, port), selfElectPromise);
+
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">boolean</span> <span class="pl-en">isLeader</span>() {
+        <span class="pl-k">return</span> amILeader<span class="pl-k">.</span>get();
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">Endpoint</span> <span class="pl-en">getLeaderEndpoint</span>() {
+        <span class="pl-k">return</span> leaderEndpoint<span class="pl-k">.</span>get();
+    }</pre></div>
+
+<h2>
+<a id="related-projects" class="anchor" href="#related-projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Related projects</h2>
+
+<ul>
+<li><a href="http://advantageous.github.io/qbit/">QBit Reactive Microservices</a></li>
+<li><a href="http://advantageous.github.io/reakt">Reakt Reactive Java</a></li>
+<li><a href="http://advantageous.github.io/reakt-guava/">Reakt Guava Bridge</a></li>
+<li><a href="https://github.com/advantageous/qbit-extensions">QBit Extensions</a></li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/advantageous">advantageous</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
