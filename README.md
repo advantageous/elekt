@@ -94,6 +94,8 @@ public class MyService {
 * [Reakt Reactive Java](http://advantageous.github.io/reakt)
 * [Reakt Guava Bridge](http://advantageous.github.io/reakt-guava/)
 * [QBit Extensions](https://github.com/advantageous/qbit-extensions)
+* [Reactive Microservices](http://www.mammatustech.com/reactive-microservices)
+
 
     
     
