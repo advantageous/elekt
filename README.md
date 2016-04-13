@@ -1,7 +1,7 @@
 # Czar Maker
 Czar Maker is a nice set of interfaces for [Leader Election](https://www.consul.io/docs/guides/leader-election.html).
 
-There is one [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/) of this interaface that uses [Consul](https://www.consul.io/). You could use the interface to implement leader election with [zookeeper](https://zookeeper.apache.org/) or [etcd](https://github.com/coreos/etcd). Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar techique as Consul and etcd).
+There is one [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/) of this interaface that uses [Consul](https://www.consul.io/). You could use the interface to implement leader election with [zookeeper](https://zookeeper.apache.org/) or [etcd](https://github.com/coreos/etcd). Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar technique as Consul and etcd).
 
 Czar uses [Reakt](http://advantageous.github.io/reakt/), a Java reactive, [streaming](https://github.com/advantageous/reakt/wiki/Stream), with [callbacks](https://github.com/advantageous/reakt/wiki/Callback) and [promises](https://github.com/advantageous/reakt/wiki/Promise).
 
