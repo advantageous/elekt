@@ -1,4 +1,4 @@
-group 'io.advantageous.czarmaker'
+group 'io.advantageous.elekt'
 version '1.0.0.RELEASE'
 
 apply plugin: 'java'
@@ -65,12 +65,12 @@ uploadArchives {
                 name project.name
                 description "Leadership election interface"
 
-                url 'https://github.com/advantageous/czar-maker'
+                url 'https://github.com/advantageous/elekt'
 
                 scm {
-                    url 'scm:git@github.com:advantageous/czar-maker.git'
-                    connection 'scm:git@github.com:advantageous/czar-maker.git'
-                    developerConnection 'scm:git@github.com:advantageous/czar-maker.git'
+                    url 'scm:git@github.com:advantageous/elekt.git'
+                    connection 'scm:git@github.com:advantageous/elekt.git'
+                    developerConnection 'scm:git@github.com:advantageous/elekt.git'
                 }
 
                 licenses {

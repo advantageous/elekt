@@ -1,27 +1,29 @@
-# Czar Maker
-Czar Maker is a nice set of interfaces for [Leader Election](https://www.consul.io/docs/guides/leader-election.html).
+# Elekt
+Elekt is a nice set of interfaces for [Leader Election](https://www.consul.io/docs/guides/leader-election.html).
 
-There is one [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/) of this interface that uses [Consul](https://www.consul.io/). You could use the interface to implement leader election with [zookeeper](https://zookeeper.apache.org/) or [etcd](https://github.com/coreos/etcd). Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar technique as Consul and etcd).
+There is one [Elekt Consul implementation](http://advantageous.github.io/elekt-consul/) of this interface that uses [Consul](https://www.consul.io/). You could use the interface to implement leader election with [zookeeper](https://zookeeper.apache.org/) or [etcd](https://github.com/coreos/etcd). Consul and etcd use the RAFT algorithm to present a reliable kv storage (Zookeeper uses a similar technique as Consul and etcd).
 
-Czar uses [Reakt](http://advantageous.github.io/reakt/), a Java reactive, [streaming](https://github.com/advantageous/reakt/wiki/Stream) API, with [callbacks](https://github.com/advantageous/reakt/wiki/Callback) and [promises](https://github.com/advantageous/reakt/wiki/Promise) that is Java 8 and Lambda friendly.
+Elekt uses [Reakt](http://advantageous.github.io/reakt/), a Java reactive, [streaming](https://github.com/advantageous/reakt/wiki/Stream) API, with [callbacks](https://github.com/advantageous/reakt/wiki/Callback) and [promises](https://github.com/advantageous/reakt/wiki/Promise) that is Java 8 and Lambda friendly.
 
-Czar also uses [QBit microservices](http://advantageous.github.io/qbit/) as its HTTP/IO lib.
+Elekt also uses [QBit microservices](http://advantageous.github.io/qbit/) as its HTTP/IO lib.
+
+(This project was called Czar Maker, but was renamed to Elekt.)
 
 ##Getting Started
-This library is just interfaces, to use Czar on your project you will need the [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/).
+This library is just interfaces, to use Elekt on your project you will need the [Elekt Consul implementation](http://advantageous.github.io/elekt-consul/).
 
 #### maven
 ```xml
 <dependency>
-    <groupId>io.advantageous.czarmaker</groupId>
-    <artifactId>czar-maker</artifactId>
+    <groupId>io.advantageous.elekt</groupId>
+    <artifactId>elekt</artifactId>
     <version>0.1.0.RELEASE</version>
 </dependency>
 ```
 
 #### gradle 
 ```java
-compile 'io.advantageous.czarmaker:czar-maker:0.1.0.RELEASE'
+compile 'io.advantageous.elekt:elekt:0.1.0.RELEASE'
 ```
 
 
