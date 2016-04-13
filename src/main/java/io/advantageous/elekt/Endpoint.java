@@ -1,4 +1,4 @@
-package io.advantageous.czarmaker;
+package io.advantageous.elekt;
 
 public class Endpoint {
 
