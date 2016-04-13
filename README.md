@@ -1,5 +1,9 @@
-# czar-maker
-Nice set of interfaces for Leader Election
+# Czar Maker
+Czar Maker is a nice set of interfaces for [Leader Election](https://www.consul.io/docs/guides/leader-election.html).
+
+There is one [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/) of this interaface that use Consul.
+
+Czar uses [Reakt](https://github.com/advantageous/reakt), a reactive streaming, reactive API with callbacks and promises.
 
 
 #### Example usage
