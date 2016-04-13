@@ -1,9 +1,28 @@
 # Czar Maker
 Czar Maker is a nice set of interfaces for [Leader Election](https://www.consul.io/docs/guides/leader-election.html).
 
-There is one [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/) of this interaface that use Consul.
+There is one [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/) of this interaface that use [Consul](https://www.consul.io/). You could use the interface to implement leader election with [zookeeper](https://zookeeper.apache.org/) or [etcd](https://github.com/coreos/etcd). Consul and etcd use the RAFT algorithm to present a reliable kv storage. 
 
-Czar uses [Reakt](https://github.com/advantageous/reakt), a reactive streaming, reactive API with callbacks and promises.
+Czar uses [Reakt](http://advantageous.github.io/reakt/), a Java reactive, [streaming](https://github.com/advantageous/reakt/wiki/Stream), with [callbacks](https://github.com/advantageous/reakt/wiki/Callback) and [promises](https://github.com/advantageous/reakt/wiki/Promise).
+
+Czar also uses [QBit microservices](http://advantageous.github.io/qbit/) as its HTTP/IO lib.
+
+##Getting Started
+This library is just interfaces, to use Czar on your project you will need the [Czar Maker Consul implementation](http://advantageous.github.io/czar-maker-consul/).
+
+#### maven
+```xml
+<dependency>
+    <groupId>io.advantageous.czarmaker</groupId>
+    <artifactId>czar-maker</artifactId>
+    <version>0.1.0.RELEASE</version>
+</dependency>
+```
+
+#### gradle 
+```java
+compile 'io.advantageous.czarmaker:czar-maker:0.1.0.RELEASE'
+```
 
 
 #### Example usage
